@@ -269,7 +269,7 @@ for (tt in 1:iter){
   ## eigenvalue of (X^1-mu^1)'(X^1-mu^1)
   est_Eigval1=Singval1^2
   
-  hh=5
+  hh=2 #5 original
   comb=expand.grid(0:hh,0:hh)
   comb=comb[-1,]
   loglikelihood=AIC=rep(NA,nrow(comb))
@@ -277,7 +277,7 @@ for (tt in 1:iter){
   
   # select PCs according to AIC
   for (ss in 1:nrow(comb)) {
-    #print(ss)
+    print(ss)
     
     if(comb[ss,1]==0){
       
@@ -438,6 +438,7 @@ for (tt in 1:iter){
     
   }
   
+  ################ Reconstructing the original grid using the resulting FPC components (Single summary for all the persistent images)
   num.clinical = 2 # number of clinical variables
   
   if (comb[AICselectindex,1]==0) {
@@ -625,38 +626,39 @@ df1_join = left_join(df1,df1_part,by=c("x"="x","y"="y"))
 df1_join$z = colMeans(beta1,na.rm = T)
 
 
-minmax0[2]=ceiling(minmax0[2])
-minmax0[1]=floor(minmax0[1])
+# Commented following for redundancy
+# minmax0[2]=ceiling(minmax0[2])
+# minmax0[1]=floor(minmax0[1])
 
-minmax1[2]=ceiling(minmax1[2])
-minmax1[1]=floor(minmax1[1])
+# minmax1[2]=ceiling(minmax1[2])
+# minmax1[1]=floor(minmax1[1])
 
-res0 = minmax0[2]-minmax0[1]
-res1 = minmax1[2]-minmax1[1]
+# res0 = minmax0[2]-minmax0[1]
+# res1 = minmax1[2]-minmax1[1]
 
-cunit0=(minmax0[2]-minmax0[1])/(2*res0)
-gridx0=seq(minmax0[1]+cunit0,minmax0[2]-cunit0,length.out = res0)
-gridy0=seq(minmax0[1]+cunit0,minmax0[2]-cunit0,length.out = res0)
+# cunit0=(minmax0[2]-minmax0[1])/(2*res0)
+# gridx0=seq(minmax0[1]+cunit0,minmax0[2]-cunit0,length.out = res0)
+# gridy0=seq(minmax0[1]+cunit0,minmax0[2]-cunit0,length.out = res0)
 
-cunit1=(minmax1[2]-minmax1[1])/(2*res1)
-gridx1=seq(minmax1[1]+cunit1,minmax1[2]-cunit1,length.out = res1)
-gridy1=seq(minmax1[1]+cunit1,minmax1[2]-cunit1,length.out = res1)
+# cunit1=(minmax1[2]-minmax1[1])/(2*res1)
+# gridx1=seq(minmax1[1]+cunit1,minmax1[2]-cunit1,length.out = res1)
+# gridy1=seq(minmax1[1]+cunit1,minmax1[2]-cunit1,length.out = res1)
 
-# data for dimension zero
-df0=data.frame(x=rep(gridx0,each=res0),y=rep(gridy0,res0))  
-df0_part = data.frame(x=rep(gridx0,each=res0),y=rep(gridy0,res0)) %>%
-  filter(y>=x)
-df0_part$z=beta.est0[1:nrow(df0_part),]
-df0_join = left_join(df0,df0_part,by=c("x"="x","y"="y"))
-df0_join$z = colMeans(beta0,na.rm = T)
+# # data for dimension zero
+# df0=data.frame(x=rep(gridx0,each=res0),y=rep(gridy0,res0))  
+# df0_part = data.frame(x=rep(gridx0,each=res0),y=rep(gridy0,res0)) %>%
+#   filter(y>=x)
+# df0_part$z=beta.est0[1:nrow(df0_part),]
+# df0_join = left_join(df0,df0_part,by=c("x"="x","y"="y"))
+# df0_join$z = colMeans(beta0,na.rm = T)
 
-# data for dimension one
-df1=data.frame(x=rep(gridx1,each=res1),y=rep(gridy1,res1))
-df1_part = data.frame(x=rep(gridx1,each=res1),y=rep(gridy1,res1)) %>%
-  filter(y>=x)
-df1_part$z=beta.est1[1:nrow(df1_part),]
-df1_join = left_join(df1,df1_part,by=c("x"="x","y"="y"))
-df1_join$z = colMeans(beta1,na.rm = T)
+# # data for dimension one
+# df1=data.frame(x=rep(gridx1,each=res1),y=rep(gridy1,res1))
+# df1_part = data.frame(x=rep(gridx1,each=res1),y=rep(gridy1,res1)) %>%
+#   filter(y>=x)
+# df1_part$z=beta.est1[1:nrow(df1_part),]
+# df1_join = left_join(df1,df1_part,by=c("x"="x","y"="y"))
+# df1_join$z = colMeans(beta1,na.rm = T)
 
 
 # Plot estimated coefficient function for dimension zero
