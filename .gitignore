@@ -1,0 +1,29 @@
+# R project files
+.Rproj.user/
+.Rhistory
+.RData
+.Rprofile
+*.Rproj
+
+# R scratch / temporary outputs
+scratch/
+scratch.*
+
+# Python / JetBrains IDE
+.idea/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+*.egg-info/
+.venv/
+venv/
+
+# PDFs
+*.pdf
+
+# Claude
+CLAUDE.md
+
+# OS
+.DS_Store
+Thumbs.db
